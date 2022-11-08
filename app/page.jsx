@@ -1,6 +1,6 @@
-import Image from "next/image";
-import styles from "./page.module.css";
 import Link from "next/link";
+import styles from "./page.module.css";
+import * as Constants from "./utils/Constants";
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Creado por Hector Gomez, Andres Mora y Dany Sandoval
+          Creado por {Constants.HECTOR}, {Constants.ANDRES} y {Constants.DANY}
         </p>
 
         <div className={styles.grid}>
@@ -43,14 +43,11 @@ export default function Home() {
 
       <footer className={styles.footer}>
         <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          href=""
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
+          {Constants.FOOTER}
         </a>
       </footer>
     </div>
