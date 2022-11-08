@@ -30,7 +30,7 @@ export default function Home() {
           </Link>
 
           <a
-            href="https://vercel.com/templates/next.js/app-directory?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+            href="https://github.com/HectorManuelGomez/proyecto-semaforo"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.card}
