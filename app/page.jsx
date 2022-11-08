@@ -1,32 +1,33 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import Image from "next/image";
+import styles from "./page.module.css";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js 13!</a>
+          Bienvenido a la central semafórica inteligente
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>app/page.tsx</code>
+          Creado por Hector Gomez, Andres Mora y Dany Sandoval
         </p>
 
         <div className={styles.grid}>
-          <a href="https://beta.nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js 13</p>
-          </a>
-
           <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
+            href="http://127.0.0.1:8090/_/"
+            target="_blank"
             className={styles.card}
           >
-            <h2>Examples &rarr;</h2>
-            <p>Explore the Next.js 13 playground.</p>
+            <h2>Base de datos &rarr;</h2>
+            <p>Acceda a la base de datos de la central</p>
           </a>
+
+          <Link href="/dashboard" className={styles.card}>
+            <h2>Dashboard &rarr;</h2>
+            <p>Acceda al mapa de la ciudad</p>
+          </Link>
 
           <a
             href="https://vercel.com/templates/next.js/app-directory?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -34,8 +35,8 @@ export default function Home() {
             rel="noopener noreferrer"
             className={styles.card}
           >
-            <h2>Deploy &rarr;</h2>
-            <p>Deploy your Next.js site to a public URL with Vercel.</p>
+            <h2>Repositorio &rarr;</h2>
+            <p>Acceda al repositorio del proyecto</p>
           </a>
         </div>
       </main>
@@ -46,12 +47,12 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
+  );
 }
