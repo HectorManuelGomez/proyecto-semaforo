@@ -8,7 +8,6 @@ import { DataGrid, GridColumns, GridCellParams } from "@mui/x-data-grid";
 import Link from "next/link";
 import Image from "next/image";
 import semaforo from "./semaforo.png";
-import { idID } from "@mui/material/locale";
 
 const getTabla = (id) => {
   const listaSemaforos = {
@@ -33,34 +32,6 @@ export default function Dashboard({ params }) {
   const { id } = params;
   const SS = "ss";
   const TIME = "time";
-  const data = {
-    ss: [
-      "01010000",
-      "10010000",
-      "10000100",
-      "10000000",
-      "10000100",
-      "10010000",
-      "11010000",
-      "00110000",
-      "01010000",
-      "10010000",
-      "10000100",
-    ],
-    time: [
-      "3000",
-      "25000",
-      "28000",
-      "1000",
-      "1000",
-      "9000",
-      "2000",
-      "6000",
-      "3000",
-      "66000",
-      "4000",
-    ],
-  };
   const columns: GridColumns = [
     { headerName: SS, field: SS, width: 80, headerAlign: "center" },
     { headerName: TIME, field: TIME, width: 80, headerAlign: "center" },
@@ -81,26 +52,39 @@ export default function Dashboard({ params }) {
       >
         {/* <DataGrid rows={data} columns={columns} density="compact"/> */}
 
+        <Grid item sm={6}>
+          {id == 2 && <h2>Grupo 2</h2>}
+          {id == 3 && <h2>Grupo 1</h2>}
+          {id == 1 && <h2>Grupo 1</h2>}
+          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
+          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
+          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
+        </Grid>
+        <Grid item sm={6}>
+          {id == 3 || (id == 2 && <h2>Grupo 4</h2>)}
+          {id == 1 && <h2>Grupo 2</h2>}
+          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
+          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
+        </Grid>
+        <Grid item sm={6}>
+          {id == 2 && <h2>Grupo 91</h2>}
+          {id == 3 && <h2>Grupo 21</h2>}
+          {id == 1 && <h2>Grupo 3</h2>}
+          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
+          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
+        </Grid>
+        <Grid item sm={6}>
+          {id == 2 && <h2>Grupo 22</h2>}
+          {id == 3 && <h2>Grupo 24</h2>}
+          {id == 1 && <h2>Grupo 4</h2>}
+          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
+        </Grid>
         {id == 1 && (
-        <Grid item sm={6}>
-          <h2>Grupo 2</h2>
-          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
-          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
-        </Grid>
+          <Grid item sm={6}>
+            <h2>Grupo 5</h2>
+            <Image src={semaforo} alt="Semaforo" width={400} height={400} />
+          </Grid>
         )}
-        <Grid item sm={6}>
-          <h2>Grupo 2</h2>
-          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
-          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
-        </Grid>
-        <Grid item sm={6}>
-          <h2>Grupo 3</h2>
-          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
-        </Grid>
-        <Grid item sm={6}>
-          <h2>Grupo 4</h2>
-          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
-        </Grid>
       </Grid>
 
       <br></br>
