@@ -4,3 +4,4 @@ export const FOOTER = '© ' + new Date().getFullYear() + ', Hemagome Productions
 export const HECTOR = 'Hector Gomez';
 export const DANY = 'Dany Sandoval';
 export const ANDRES = 'Andres Mora';
+
