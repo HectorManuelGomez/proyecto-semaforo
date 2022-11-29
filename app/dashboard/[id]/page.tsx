@@ -1,15 +1,13 @@
-// const fetchData = () => {
-//   return fetch("").then((rest) => rest.json());
-// };
-
 "use client";
 import { Button, Grid } from "@mui/material";
 import { DataGrid, GridColumns, GridCellParams } from "@mui/x-data-grid";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import semaforo from "./semaforo.png";
+import PocketBase from "pocketbase";
 
-const getTabla = (id) => {
+function getTabla(id): any {
   const listaSemaforos = {
     1: "Cr80 x Dg43 Sur",
     2: "Cl34 x Cr28",
@@ -18,27 +16,103 @@ const getTabla = (id) => {
   const error = "Error, se requiere semaforo";
   const semaforo = listaSemaforos[id] || error;
   return semaforo;
-};
-
-async function getData() {
-  const res = await fetch(
-    "http://127.0.0.1:8090//api/collections/grupo1/records"
-  );
-  const data = await res.json();
-  console.log(data);
 }
 
 export default function Dashboard({ params }) {
+  const [data, setData] = useState([]);
   const { id } = params;
-  const SS = "ss";
-  const TIME = "time";
   const columns: GridColumns = [
-    { headerName: SS, field: SS, width: 80, headerAlign: "center" },
-    { headerName: TIME, field: TIME, width: 80, headerAlign: "center" },
+    { headerName: "Rojo", field: "rojo", width: 80, headerAlign: "center" },
+    {
+      headerName: "Amarillo",
+      field: "amarillo",
+      width: 80,
+      headerAlign: "center",
+    },
+    { headerName: "Verde", field: "verde", width: 80, headerAlign: "center" },
+    { headerName: "rojo2", field: "rojo2", width: 80, headerAlign: "center" },
+    {
+      headerName: "amarillo2",
+      field: "amarillo2",
+      width: 80,
+      headerAlign: "center",
+    },
+    { headerName: "verde2", field: "verde2", width: 80, headerAlign: "center" },
+    { headerName: "Rojo3", field: "rojo3", width: 80, headerAlign: "center" },
+    {
+      headerName: "Amarillo3",
+      field: "amarillo3",
+      width: 80,
+      headerAlign: "center",
+    },
+    { headerName: "Verde3", field: "verde3", width: 80, headerAlign: "center" },
+    { headerName: "rojo", field: "rojo4", width: 80, headerAlign: "center" },
+    {
+      headerName: "amarillo",
+      field: "amarillo4",
+      width: 80,
+      headerAlign: "center",
+    },
+    { headerName: "verde", field: "verde4", width: 80, headerAlign: "center" },
   ];
-  getData();
 
-  // const data = await fetchData()
+  const getData = async () => {
+    try {
+      const db = new PocketBase("http://127.0.0.1:8090");
+      const info = await db.records.getList("grupo1");
+      console.log(info);
+      setData(info?.items as any[]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const postSemaforoData = async (id) => {
+    try {
+      const request = await fetch(`/uribroker`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ id: id }),
+      });
+      const response = await request.json();
+      if (response.msn === "SUCCESS") {
+        setData(response.data);
+      } else {
+        setData([]);
+      }
+    } catch (error) {
+      setData([]);
+    }
+  };
+
+  const getSemaforoData = async (id) => {
+    try {
+      const request = await fetch(`/uribroker?id=${id}`, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      const response = await request.json();
+      if (response.msn === "SUCCESS") {
+        setData(response.data);
+      } else {
+        setData([]);
+      }
+    } catch (error) {
+      setData([]);
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getSemaforoData(id);
+    }, 1000);
+    return () => clearInterval(interval);
+  });
+
   return (
     <>
       <h1>Estado semáforo {getTabla(id)}</h1>
@@ -50,8 +124,15 @@ export default function Dashboard({ params }) {
         justifyContent="flex-end"
         alignItems="center"
       >
-        {/* <DataGrid rows={data} columns={columns} density="compact"/> */}
-
+        {/* <DataGrid rows={data} columns={columns} density="compact" /> */}
+        <Grid item sm={6}>
+          {id == 1 && <h2>Grupo 1</h2>}
+          {data.id(JSON).includes("1")}
+          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
+          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
+          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
+        </Grid>
+        {/* Test */}
         <Grid item sm={6}>
           {id == 2 && <h2>Grupo 2</h2>}
           {id == 3 && <h2>Grupo 1</h2>}
