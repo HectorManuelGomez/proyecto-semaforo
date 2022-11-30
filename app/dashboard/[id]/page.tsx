@@ -56,51 +56,18 @@ export default function Dashboard({ params }) {
     { headerName: "verde", field: "verde4", width: 80, headerAlign: "center" },
   ];
 
-  const getData = async () => {
+  const getSemaforoData = async () => {
     try {
-      const db = new PocketBase("http://127.0.0.1:8090");
-      const info = await db.records.getList("grupo1");
-      console.log(info);
-      setData(info?.items as any[]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const postSemaforoData = async (id) => {
-    try {
-      const request = await fetch(`/uribroker`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({ id: id }),
-      });
-      const response = await request.json();
-      if (response.msn === "SUCCESS") {
-        setData(response.data);
-      } else {
-        setData([]);
-      }
-    } catch (error) {
-      setData([]);
-    }
-  };
-
-  const getSemaforoData = async (id) => {
-    try {
-      const request = await fetch(`/uribroker?id=${id}`, {
+      const request = await fetch('http://localhost:3100/consultar-broker', {
+      // const request = await fetch(`/uribroker?id=${id}`, {
         method: "GET",
         headers: {
           "Content-type": "application/json",
-        },
+        }
       });
       const response = await request.json();
-      if (response.msn === "SUCCESS") {
-        setData(response.data);
-      } else {
-        setData([]);
-      }
+      setData(response)
+      // console.log(response)
     } catch (error) {
       setData([]);
     }
@@ -108,11 +75,12 @@ export default function Dashboard({ params }) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      getSemaforoData(id);
+      getSemaforoData();
     }, 1000);
     return () => clearInterval(interval);
   });
 
+  // console.log(data);
   return (
     <>
       <h1>Estado semáforo {getTabla(id)}</h1>
@@ -127,16 +95,7 @@ export default function Dashboard({ params }) {
         {/* <DataGrid rows={data} columns={columns} density="compact" /> */}
         <Grid item sm={6}>
           {id == 1 && <h2>Grupo 1</h2>}
-          {data.id(JSON).includes("1")}
-          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
-          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
-          <Image src={semaforo} alt="Semaforo" width={400} height={400} />
-        </Grid>
-        {/* Test */}
-        <Grid item sm={6}>
-          {id == 2 && <h2>Grupo 2</h2>}
           {id == 3 && <h2>Grupo 1</h2>}
-          {id == 1 && <h2>Grupo 1</h2>}
           <Image src={semaforo} alt="Semaforo" width={400} height={400} />
           <Image src={semaforo} alt="Semaforo" width={400} height={400} />
           <Image src={semaforo} alt="Semaforo" width={400} height={400} />
